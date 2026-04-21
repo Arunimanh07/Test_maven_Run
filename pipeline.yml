@@ -1,0 +1,23 @@
+trigger:
+- main
+
+pool:
+  vmImage: 'ubuntu-latest'
+
+steps:
+- task: MavenAuthenticate@0
+  inputs:
+    artifactsFeeds: 'my-maven-feed'
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'
+    goals: 'clean compile'
+    options: '-X'
+    publishJUnitResults: false
+    javaHomeOption: 'JDKVersion'
+    jdkVersionOption: '1.17'
+    mavenVersionOption: 'Default'
+
+- script: |
+    mvn exec:java -Dexec.mainClass="com.example.quote.MainApp"
+  displayName: 'Run Application'

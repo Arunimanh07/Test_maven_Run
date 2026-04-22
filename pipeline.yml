@@ -5,9 +5,15 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- task: MavenAuthenticate@0
+  inputs:
+    artifactsFeeds: 'my-maven-feed'
+
+- task: Maven@4
+  inputs:
+    mavenPomFile: 'pom.xml'   # ✅ FIXED
+    goals: 'clean compile'
+
 - script: |
-    echo "===== DEBUG START ====="
-    pwd
-    ls -R
-    echo "===== DEBUG END ====="
-  displayName: 'Check File Structure'
+    mvn exec:java -Dexec.mainClass="com.example.App"
+  displayName: 'Run Application'

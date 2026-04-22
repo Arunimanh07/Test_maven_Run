@@ -10,7 +10,7 @@ steps:
     artifactsFeeds: 'my-maven-feed'
 - task: Maven@4
   inputs:
-    mavenPomFile: 'pom.xml'
+    mavenPomFile: 'my-app/pom.xml'
     goals: 'clean compile'
     options: '-X'
     publishJUnitResults: false

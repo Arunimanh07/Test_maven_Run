@@ -5,32 +5,9 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
-
-# 🔍 Debug step (VERY IMPORTANT)
 - script: |
-    echo "===== DEBUG: Listing Files ====="
+    echo "===== DEBUG START ====="
     pwd
     ls -R
-  displayName: 'Debug Folder Structure'
-
-# 🔐 Authenticate to Azure Artifacts
-- task: MavenAuthenticate@0
-  inputs:
-    artifactsFeeds: 'my-maven-feed'
-
-# 🛠️ Build project
-- task: Maven@4
-  displayName: 'Build Maven Project'
-  inputs:
-    mavenPomFile: 'my-app/pom.xml'   # 🔴 verify via debug step
-    goals: 'clean compile'
-    options: '-B'
-    publishJUnitResults: false
-    javaHomeOption: 'JDKVersion'
-    jdkVersionOption: '1.17'
-    mavenVersionOption: 'Default'
-
-# ▶️ Run application
-- script: |
-    mvn -f my-app/pom.xml exec:java -Dexec.mainClass="com.example.App"
-  displayName: 'Run Application'
+    echo "===== DEBUG END ====="
+  displayName: 'Check File Structure'

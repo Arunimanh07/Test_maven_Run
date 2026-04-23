@@ -3,7 +3,15 @@
     <mirror>
       <id>azure-artifacts</id>
       <url>https://pkgs.dev.azure.com/arunimanh/synk_test/_packaging/my-maven-feed/maven/v1</url>
-      <mirrorOf>central</mirrorOf>
+      <mirrorOf>*</mirrorOf>
     </mirror>
   </mirrors>
+
+  <servers>
+    <server>
+      <id>azure-artifacts</id>
+      <username>AzureDevOps</username>
+      <password>${env.SYSTEM_ACCESSTOKEN}</password>
+    </server>
+  </servers>
 </settings>

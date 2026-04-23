@@ -23,6 +23,8 @@ steps:
         -f my-app/pom.xml \
         clean compile
   displayName: 'Build Project'
+  env:                         # 👈 ADD HERE
+    SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
 # ▶️ Run application
 - script: |
@@ -30,3 +32,5 @@ steps:
         -f my-app/pom.xml \
         exec:java -Dexec.mainClass="com.example.App"
   displayName: 'Run Application'
+  env:                         # 👈 ADD HERE
+    SYSTEM_ACCESSTOKEN: $(System.AccessToken)

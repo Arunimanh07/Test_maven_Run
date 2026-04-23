@@ -20,5 +20,9 @@ steps:
 
 # ✅ Debug (optional)
 - script: |
+    echo "=== USER SETTINGS ==="
+    cat ~/.m2/settings.xml || echo "No user settings"
+  displayName: 'Check .m2 settings'
+- script: |
     mvn -s $(Build.SourcesDirectory)/settings.xml help:effective-settings
   displayName: 'DEBUG SETTINGS'

@@ -6,19 +6,19 @@ pool:
 
 steps:
 
-# ✅ This injects auth automatically
+# ✅ Handles authentication automatically
 - task: MavenAuthenticate@0
   inputs:
     artifactsFeeds: 'my-maven-feed'
 
-# ✅ Use your mirror settings
+# ✅ Build
 - task: Maven@4
   inputs:
     mavenPomFile: 'my-app/pom.xml'
     goals: 'clean compile'
     options: '-s settings.xml'
 
-# ✅ Run app
+# ✅ Run
 - script: |
     mvn -s settings.xml -f my-app/pom.xml exec:java -Dexec.mainClass="com.example.App"
   displayName: 'Run Application'

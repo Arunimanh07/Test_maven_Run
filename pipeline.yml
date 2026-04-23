@@ -12,18 +12,15 @@ steps:
     rm -rf ~/.m2
   displayName: 'Reset Maven Environment'
 
-# 🔐 Authenticate to Azure Artifacts
-- task: MavenAuthenticate@0
-  inputs:
-    artifactsFeeds: 'my-maven-feed'
-
 # 🔧 Build using custom settings.xml
+steps:
+
 - script: |
     mvn --settings $(Build.SourcesDirectory)/settings.xml \
         -f my-app/pom.xml \
         clean compile
-  displayName: 'Build Project'
-  env:                         # 👈 ADD HERE
+  displayName: 'Build'
+  env:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
 
 # ▶️ Run application

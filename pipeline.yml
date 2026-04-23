@@ -15,5 +15,6 @@ steps:
     goals: 'clean compile'
 
 - script: |
-    mvn exec:java -Dexec.mainClass="com.example.App"
+    mvn clean compile
+    java -cp target/classes com.example.App
   displayName: 'Run Application'

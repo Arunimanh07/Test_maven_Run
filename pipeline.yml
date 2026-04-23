@@ -11,7 +11,7 @@ steps:
 
 - task: Maven@4
   inputs:
-    mavenPomFile: 'pom.xml'   # ✅ FIXED
+    mavenPomFile: 'my-app/pom.xml'   # ✅ FIXED
     goals: 'clean compile'
 
 - script: |

@@ -6,23 +6,27 @@ pool:
 
 steps:
 
-# ✅ REQUIRED for authentication
+# 🔥 Clean any hidden Maven configs
+- script: |
+    echo "Cleaning Maven environment..."
+    rm -rf ~/.m2
+  displayName: 'Reset Maven Environment'
+
+# 🔐 Authenticate to Azure Artifacts
 - task: MavenAuthenticate@0
   inputs:
     artifactsFeeds: 'my-maven-feed'
 
-# ✅ Build
-- task: Maven@4
-  inputs:
-    mavenPomFile: 'my-app/pom.xml'
-    goals: 'clean compile'
-    options: '-s $(Build.SourcesDirectory)/settings.xml'
+# 🔧 Build using custom settings.xml
+- script: |
+    mvn --settings $(Build.SourcesDirectory)/settings.xml \
+        -f my-app/pom.xml \
+        clean compile
+  displayName: 'Build Project'
 
-# ✅ Debug (optional)
+# ▶️ Run application
 - script: |
-    echo "=== USER SETTINGS ==="
-    cat ~/.m2/settings.xml || echo "No user settings"
-  displayName: 'Check .m2 settings'
-- script: |
-    mvn -s $(Build.SourcesDirectory)/settings.xml help:effective-settings
-  displayName: 'DEBUG SETTINGS'
+    mvn --settings $(Build.SourcesDirectory)/settings.xml \
+        -f my-app/pom.xml \
+        exec:java -Dexec.mainClass="com.example.App"
+  displayName: 'Run Application'

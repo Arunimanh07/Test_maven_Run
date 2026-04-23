@@ -18,6 +18,6 @@ steps:
 
 # ✅ ALSO FIXED HERE
 - script: |
-    mvn -f my-app/pom.xml clean compile
-    java -cp my-app/target/classes com.example.App
+    mvn -f my-app/pom.xml exec:java -Dexec.mainClass="com.example.App"
   displayName: 'Run Application'
+  

@@ -6,28 +6,28 @@ pool:
 
 steps:
 
-# 🔥 Clean any hidden Maven configs
 - script: |
-    echo "Cleaning Maven environment..."
-    rm -rf ~/.m2
-  displayName: 'Reset Maven Environment'
-
-# 🔧 Build using custom settings.xml
-steps:
-
-- script: |
-    mvn --settings $(Build.SourcesDirectory)/settings.xml \
-        -f my-app/pom.xml \
-        clean compile
-  displayName: 'Build'
+    echo "==== CHECK TOKEN ===="
+    if [ -z "$SYSTEM_ACCESSTOKEN" ]; then
+      echo "❌ TOKEN IS EMPTY"
+    else
+      echo "✅ TOKEN IS PRESENT"
+    fi
   env:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+  displayName: 'Check Token'
 
-# ▶️ Run application
 - script: |
-    mvn --settings $(Build.SourcesDirectory)/settings.xml \
-        -f my-app/pom.xml \
-        exec:java -Dexec.mainClass="com.example.App"
-  displayName: 'Run Application'
-  env:                         # 👈 ADD HERE
+    echo "==== TEST AZURE FEED ACCESS ===="
+    curl -I -u AzureDevOps:$SYSTEM_ACCESSTOKEN \
+    https://pkgs.dev.azure.com/arunimanh/synk_test/_packaging/my-maven-feed/maven/v1
+  env:
     SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+  displayName: 'Test Feed Auth'
+
+- script: |
+    mvn -X --settings $(Build.SourcesDirectory)/settings.xml \
+        -f my-app/pom.xml clean compile
+  env:
+    SYSTEM_ACCESSTOKEN: $(System.AccessToken)
+  displayName: 'Build (Debug Mode)'

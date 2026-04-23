@@ -7,18 +7,13 @@ pool:
 steps:
 
 # ✅ Handles authentication automatically
-- task: MavenAuthenticate@0
-  inputs:
-    artifactsFeeds: 'my-maven-feed'
-
 # ✅ Build
 - task: Maven@4
   inputs:
     mavenPomFile: 'my-app/pom.xml'
     goals: 'clean compile'
-    options: '-s settings.xml'
-
+    options: '-s $(Build.SourcesDirectory)/settings.xml'
 # ✅ Run
 - script: |
-    mvn -s settings.xml -f my-app/pom.xml exec:java -Dexec.mainClass="com.example.App"
-  displayName: 'Run Application'
+    mvn -s $(Build.SourcesDirectory)/settings.xml help:effective-settings
+  displayName: 'DEBUG SETTINGS'

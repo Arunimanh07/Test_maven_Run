@@ -17,7 +17,7 @@
     <servers>
         <server>
             <id>azure-artifacts</id>
-            <username>arunimanh</username>
+            <username>AzureDevOps</username>
             <password>${env.SYSTEM_ACCESSTOKEN}</password>
         </server>
     </servers>

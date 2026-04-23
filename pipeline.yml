@@ -5,16 +5,19 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+
 - task: MavenAuthenticate@0
   inputs:
     artifactsFeeds: 'my-maven-feed'
 
+# ✅ FIXED PATH HERE
 - task: Maven@4
   inputs:
-    mavenPomFile: 'my-app/pom.xml'   # ✅ FIXED
+    mavenPomFile: 'my-app/pom.xml'
     goals: 'clean compile'
 
+# ✅ ALSO FIXED HERE
 - script: |
-    mvn clean compile
-    java -cp target/classes com.example.App
+    mvn -f my-app/pom.xml clean compile
+    java -cp my-app/target/classes com.example.App
   displayName: 'Run Application'

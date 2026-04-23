@@ -6,18 +6,21 @@ pool:
 
 steps:
 
+# ✅ Authenticate to Azure Artifacts
 - task: MavenAuthenticate@0
   inputs:
     artifactsFeeds: 'my-maven-feed'
 
-# ✅ FIXED PATH HERE
+# ✅ Build using custom settings.xml (IMPORTANT)
 - task: Maven@4
   inputs:
     mavenPomFile: 'my-app/pom.xml'
     goals: 'clean compile'
+    options: '-s settings.xml'
 
-# ✅ ALSO FIXED HERE
+# ✅ Run application with SAME settings (IMPORTANT)
 - script: |
-    mvn -f my-app/pom.xml exec:java -Dexec.mainClass="com.example.App"
+    mvn -s settings.xml -f my-app/pom.xml exec:java -Dexec.mainClass="com.example.App"
   displayName: 'Run Application'
-  
+  env:
+    SYSTEM_ACCESSTOKEN: $(System.AccessToken)

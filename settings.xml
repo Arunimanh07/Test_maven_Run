@@ -1,64 +1,9 @@
-<settings xmlns="http://maven.apache.org/SETTINGS/1.0.0"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-          xsi:schemaLocation="http://maven.apache.org/SETTINGS/1.0.0 
-                              https://maven.apache.org/xsd/settings-1.0.0.xsd">
-
-    <!-- 🔁 Mirror ALL repositories to Azure Artifacts -->
-    <mirrors>
-        <mirror>
-            <id>azure-artifacts</id>
-            <name>my-maven-feed</name>
-            <url>https://pkgs.dev.azure.com/arunimanh/synk_test/_packaging/my-maven-feed/maven/v1</url>
-            <mirrorOf>*</mirrorOf>
-        </mirror>
-    </mirrors>
-
-    <!-- 🔐 Authentication (used by Azure Pipelines automatically) -->
-    <servers>
-        <server>
-            <id>azure-artifacts</id>
-            <username>AzureDevOps</username>
-            <password>${env.SYSTEM_ACCESSTOKEN}</password>
-        </server>
-    </servers>
-
-    <!-- 🎯 Activate profile for Azure feed -->
-    <profiles>
-        <profile>
-            <id>azure-artifacts-profile</id>
-
-            <repositories>
-                <repository>
-                    <id>azure-artifacts</id>
-                    <url>https://pkgs.dev.azure.com/arunimanh/synk_test/_packaging/my-maven-feed/maven/v1</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </repository>
-            </repositories>
-
-            <pluginRepositories>
-                <pluginRepository>
-                    <id>azure-artifacts</id>
-                    <url>https://pkgs.dev.azure.com/arunimanh/synk_test/_packaging/my-maven-feed/maven/v1</url>
-                    <releases>
-                        <enabled>true</enabled>
-                    </releases>
-                    <snapshots>
-                        <enabled>true</enabled>
-                    </snapshots>
-                </pluginRepository>
-            </pluginRepositories>
-
-        </profile>
-    </profiles>
-
-    <!-- 🚀 Activate profile -->
-    <activeProfiles>
-        <activeProfile>azure-artifacts-profile</activeProfile>
-    </activeProfiles>
-
+<settings>
+  <mirrors>
+    <mirror>
+      <id>azure-artifacts</id>
+      <url>https://pkgs.dev.azure.com/arunimanh/synk_test/_packaging/my-maven-feed/maven/v1</url>
+      <mirrorOf>central</mirrorOf>   <!-- IMPORTANT -->
+    </mirror>
+  </mirrors>
 </settings>

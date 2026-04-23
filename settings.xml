@@ -1,15 +1,15 @@
 <settings>
   <mirrors>
     <mirror>
-      <id>my-maven-feed</id>   <!-- MUST MATCH -->
+      <id>azure-artifacts</id>
       <url>https://pkgs.dev.azure.com/arunimanh/synk_test/_packaging/my-maven-feed/maven/v1</url>
-      <mirrorOf>*</mirrorOf>
+      <mirrorOf>central</mirrorOf>   <!-- NOT * -->
     </mirror>
   </mirrors>
 
   <servers>
     <server>
-      <id>my-maven-feed</id>   <!-- MUST MATCH -->
+      <id>azure-artifacts</id>
       <username>AzureDevOps</username>
       <password>${env.SYSTEM_ACCESSTOKEN}</password>
     </server>

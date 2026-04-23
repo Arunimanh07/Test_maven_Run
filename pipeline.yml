@@ -6,21 +6,19 @@ pool:
 
 steps:
 
-# ✅ Authenticate to Azure Artifacts
+# ✅ This injects auth automatically
 - task: MavenAuthenticate@0
   inputs:
     artifactsFeeds: 'my-maven-feed'
 
-# ✅ Build using custom settings.xml (IMPORTANT)
+# ✅ Use your mirror settings
 - task: Maven@4
   inputs:
     mavenPomFile: 'my-app/pom.xml'
     goals: 'clean compile'
     options: '-s settings.xml'
 
-# ✅ Run application with SAME settings (IMPORTANT)
+# ✅ Run app
 - script: |
     mvn -s settings.xml -f my-app/pom.xml exec:java -Dexec.mainClass="com.example.App"
   displayName: 'Run Application'
-  env:
-    SYSTEM_ACCESSTOKEN: $(System.AccessToken)

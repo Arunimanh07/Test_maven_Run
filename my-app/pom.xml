@@ -9,8 +9,8 @@
     <artifactId>my-app</artifactId>
     <version>1.0.0</version>
 
+    <!-- ✅ Dependencies -->
     <dependencies>
-        <!-- Example dependency from Maven Central -->
         <dependency>
             <groupId>org.apache.commons</groupId>
             <artifactId>commons-lang3</artifactId>
@@ -18,23 +18,23 @@
         </dependency>
     </dependencies>
 
-    <!-- 🔥 CRITICAL: Force plugins to Maven Central -->
-    <build>
-        <pluginRepositories>
-            <pluginRepository>
-                <id>central</id>
-                <url>https://repo.maven.apache.org/maven2</url>
-                <releases>
-                    <enabled>true</enabled>
-                </releases>
-                <snapshots>
-                    <enabled>false</enabled>
-                </snapshots>
-            </pluginRepository>
-        </pluginRepositories>
+    <!-- 🔥 CORRECT PLACE (OUTSIDE build) -->
+    <pluginRepositories>
+        <pluginRepository>
+            <id>central</id>
+            <url>https://repo.maven.apache.org/maven2</url>
+            <releases>
+                <enabled>true</enabled>
+            </releases>
+            <snapshots>
+                <enabled>false</enabled>
+            </snapshots>
+        </pluginRepository>
+    </pluginRepositories>
 
+    <!-- ✅ Build section -->
+    <build>
         <plugins>
-            <!-- Run Java main -->
             <plugin>
                 <groupId>org.codehaus.mojo</groupId>
                 <artifactId>exec-maven-plugin</artifactId>

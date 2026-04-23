@@ -3,7 +3,7 @@
     <mirror>
       <id>azure-artifacts</id>
       <url>https://pkgs.dev.azure.com/arunimanh/synk_test/_packaging/my-maven-feed/maven/v1</url>
-      <mirrorOf>central</mirrorOf>   <!-- IMPORTANT -->
+      <mirrorOf>central</mirrorOf>
     </mirror>
   </mirrors>
 </settings>
